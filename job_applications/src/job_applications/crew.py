@@ -1,7 +1,13 @@
-from crewai import Agent, Crew, Process, Task
+import os
+from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool, ScrapeWebsiteTool, MDXSearchTool, SerperDevTool
 from dotenv import load_dotenv
+
+# Config
+load_dotenv()
+MODEL = os.getenv("MODEL")
+API_BASE = os.getenv("API_BASE")
 
 # Tools
 search_tool = SerperDevTool()
@@ -31,6 +37,7 @@ class JobApplications:
                 "by employers, forming the foundation for "
                 "effective application tailoring."
             ),
+            llm=LLM(model=MODEL, base_url=API_BASE),
         )
 
     @agent
@@ -48,6 +55,7 @@ class JobApplications:
                 "personal and professional profiles, laying the "
                 "groundwork for personalized resume enhancements."
             ),
+            llm=LLM(model=MODEL, base_url=API_BASE),
         )
 
     @agent
@@ -64,6 +72,7 @@ class JobApplications:
                 "relevant skills and experiences, ensuring they "
                 "resonate perfectly with the job's requirements."
             ),
+            llm=LLM(model=MODEL, base_url=API_BASE),
         )
 
     @agent
@@ -81,6 +90,7 @@ class JobApplications:
                 "ensuring they can confidently address all aspects of the "
                 "job they are applying for."
             ),
+            llm=LLM(model=MODEL, base_url=API_BASE),
         )
 
     @task
